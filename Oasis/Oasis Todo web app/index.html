@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="newtask">
+            <input type="text" placeholder="Enter Task" id="taskInput">
+            <button id="push">Add</button>
+        </div>
+        <div id="tasks"></div>
+    </div>
+
+    <script>
+        document.querySelector('#push').onclick = function () {
+            var taskInput = document.querySelector('#taskInput');
+            var taskName = taskInput.value.trim();
+
+            if (taskName.length === 0) {
+                alert("Please Enter a Task");
+            } else {
+                var taskList = document.querySelector('#tasks');
+                taskList.innerHTML += `
+                    <div class="task">
+                        <span class="taskname">${taskName}</span>
+                        <button class="delete">X</button>
+                    </div>
+                `;
+
+                taskInput.value = ""; 
+
+                var currentTasks = document.querySelectorAll('.delete');
+                for (var i = 0; i < currentTasks.length; i++) {
+                    currentTasks[i].onclick = function () {
+                        this.parentNode.remove();
+                    };
+                }
+
+                var tasks = document.querySelectorAll('.taskname');
+                for (var i = 0; i < tasks.length; i++) {
+                    tasks[i].onclick = function () {
+                        this.classList.toggle('completed');
+                    };
+                }
+            }
+        };
+    </script>
+</body>
+</html>
